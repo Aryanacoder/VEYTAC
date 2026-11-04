@@ -1,0 +1,76 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "question_id": {
+      "title": "Question Id",
+      "type": "string"
+    },
+    "speaker": {
+      "default": "expert",
+      "title": "Speaker",
+      "type": "string"
+    },
+    "original_language": {
+      "default": "en",
+      "title": "Original Language",
+      "type": "string"
+    },
+    "original_text": {
+      "title": "Original Text",
+      "type": "string"
+    },
+    "translated_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Translated Text"
+    },
+    "audio_asset_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Audio Asset Id"
+    },
+    "status": {
+      "default": "final",
+      "title": "Status",
+      "type": "string"
+    },
+    "correction_history": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Correction History",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "session_id",
+    "question_id",
+    "original_text"
+  ],
+  "title": "DialogueTurn",
+  "type": "object"
+}

@@ -1,0 +1,84 @@
+{
+  "$defs": {
+    "ReleaseState": {
+      "enum": [
+        "draft",
+        "validation_pending",
+        "ready_for_publication",
+        "published",
+        "delisted",
+        "failed"
+      ],
+      "title": "ReleaseState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "episode_id": {
+      "title": "Episode Id",
+      "type": "string"
+    },
+    "episode_revision": {
+      "title": "Episode Revision",
+      "type": "integer"
+    },
+    "manifest_hash": {
+      "title": "Manifest Hash",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/ReleaseState",
+      "default": "draft"
+    },
+    "licenses": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Licenses",
+      "type": "array"
+    },
+    "publisher_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Publisher Id"
+    },
+    "audience": {
+      "default": "private",
+      "title": "Audience",
+      "type": "string"
+    },
+    "published_manifest_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published Manifest Hash"
+    }
+  },
+  "required": [
+    "id",
+    "episode_id",
+    "episode_revision",
+    "manifest_hash"
+  ],
+  "title": "DatasetRelease",
+  "type": "object"
+}

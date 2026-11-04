@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "outDir": ".tmp-perceive",
+    "rootDir": "src/perceive"
+  },
+  "include": ["src/perceive/events.ts", "src/perceive/events.test.ts", "src/perceive/overlay.ts", "src/perceive/overlay.test.ts", "src/perceive/node-test.d.ts"]
+}

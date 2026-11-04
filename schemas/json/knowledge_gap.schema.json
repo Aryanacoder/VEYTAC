@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "GapState": {
+      "enum": [
+        "open",
+        "asked",
+        "resolved",
+        "abandoned"
+      ],
+      "title": "GapState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "observation_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Observation Ids",
+      "type": "array"
+    },
+    "competing_interpretations": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Competing Interpretations",
+      "type": "array"
+    },
+    "missing_fact": {
+      "title": "Missing Fact",
+      "type": "string"
+    },
+    "consequence": {
+      "default": "",
+      "title": "Consequence",
+      "type": "string"
+    },
+    "domain_scope": {
+      "default": "general",
+      "title": "Domain Scope",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/GapState",
+      "default": "open"
+    }
+  },
+  "required": [
+    "id",
+    "session_id",
+    "missing_fact"
+  ],
+  "title": "KnowledgeGap",
+  "type": "object"
+}

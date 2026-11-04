@@ -1,0 +1,47 @@
+[project]
+name = "veytac"
+version = "0.1.0"
+description = "VEYTAC industrial apprenticeship infrastructure: capture expert work, ask about missing context, preserve reviewed skill episodes."
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "fastapi>=0.115,<0.117",
+    "uvicorn[standard]>=0.30,<0.35",
+    "pydantic>=2.7,<3",
+    "sqlalchemy>=2.0,<2.1",
+    "alembic>=1.13,<1.17",
+    "httpx>=0.27,<0.29",
+    "meta-sam-parser>=0.1",
+    "python-dotenv>=1.0,<2",
+    "websockets>=15,<17",
+    "pyyaml>=6.0,<7",
+    "python-multipart>=0.0.9,<0.0.20",
+]
+
+[project.optional-dependencies]
+dev = [
+    "cryptography>=42,<45",
+    "pytest>=8.0,<9",
+    "pytest-asyncio>=0.23,<0.26",
+    "ruff>=0.4,<0.9",
+]
+
+[project.scripts]
+veytac = "veytac.cli:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "provider_live: requires paid Meta provider access and explicit opt-in",
+    "gpu: requires GPU / robotics environment",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100

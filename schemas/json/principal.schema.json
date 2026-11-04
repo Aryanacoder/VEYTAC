@@ -1,0 +1,41 @@
+{
+  "$defs": {
+    "Role": {
+      "enum": [
+        "owner",
+        "expert",
+        "reviewer",
+        "learner",
+        "developer"
+      ],
+      "title": "Role",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "workspace_id": {
+      "title": "Workspace Id",
+      "type": "string"
+    },
+    "role": {
+      "$ref": "#/$defs/Role"
+    },
+    "auth_provenance": {
+      "title": "Auth Provenance",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "workspace_id",
+    "role",
+    "auth_provenance"
+  ],
+  "title": "Principal",
+  "type": "object"
+}

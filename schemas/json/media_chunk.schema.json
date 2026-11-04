@@ -1,0 +1,78 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "stream_id": {
+      "title": "Stream Id",
+      "type": "string"
+    },
+    "epoch_id": {
+      "title": "Epoch Id",
+      "type": "string"
+    },
+    "sequence_no": {
+      "title": "Sequence No",
+      "type": "integer"
+    },
+    "interval_start_ms": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Interval Start Ms"
+    },
+    "interval_end_ms": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Interval End Ms"
+    },
+    "mime": {
+      "title": "Mime",
+      "type": "string"
+    },
+    "codec": {
+      "default": "",
+      "title": "Codec",
+      "type": "string"
+    },
+    "sha256": {
+      "title": "Sha256",
+      "type": "string"
+    },
+    "size_bytes": {
+      "title": "Size Bytes",
+      "type": "integer"
+    },
+    "capture_mode": {
+      "default": "live",
+      "title": "Capture Mode",
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_id",
+    "stream_id",
+    "epoch_id",
+    "sequence_no",
+    "mime",
+    "sha256",
+    "size_bytes"
+  ],
+  "title": "MediaChunk",
+  "type": "object"
+}

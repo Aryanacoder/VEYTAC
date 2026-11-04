@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "ExperimentConclusion": {
+      "enum": [
+        "not_evaluated",
+        "inconclusive",
+        "no_detected_benefit",
+        "positive_within_scope"
+      ],
+      "title": "ExperimentConclusion",
+      "type": "string"
+    },
+    "ExperimentStatus": {
+      "enum": [
+        "planned",
+        "blocked",
+        "running",
+        "failed",
+        "completed",
+        "canceled"
+      ],
+      "title": "ExperimentStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "kind": {
+      "title": "Kind",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/ExperimentStatus",
+      "default": "planned"
+    },
+    "conclusion": {
+      "$ref": "#/$defs/ExperimentConclusion",
+      "default": "not_evaluated"
+    },
+    "data_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Data Hash"
+    },
+    "config_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Config Hash"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model"
+    },
+    "seeds": {
+      "default": [],
+      "items": {
+        "type": "integer"
+      },
+      "title": "Seeds",
+      "type": "array"
+    },
+    "costs_usd": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Costs Usd"
+    },
+    "metrics": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "default": {},
+      "title": "Metrics",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "kind"
+  ],
+  "title": "ExperimentRun",
+  "type": "object"
+}

@@ -1,0 +1,81 @@
+{
+  "$defs": {
+    "ConsentPurpose": {
+      "enum": [
+        "capture",
+        "external_inference",
+        "internal_review",
+        "training",
+        "internal_sharing",
+        "public_distribution"
+      ],
+      "title": "ConsentPurpose",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "actor_id": {
+      "title": "Actor Id",
+      "type": "string"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "purpose": {
+      "$ref": "#/$defs/ConsentPurpose"
+    },
+    "granted_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Granted At"
+    },
+    "revoked_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revoked At"
+    },
+    "notice_version": {
+      "default": "1",
+      "title": "Notice Version",
+      "type": "string"
+    },
+    "notice_hash": {
+      "title": "Notice Hash",
+      "type": "string"
+    },
+    "scope": {
+      "default": "",
+      "title": "Scope",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "actor_id",
+    "session_id",
+    "purpose",
+    "notice_hash"
+  ],
+  "title": "ConsentGrant",
+  "type": "object"
+}

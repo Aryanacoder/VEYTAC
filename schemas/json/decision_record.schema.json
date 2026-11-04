@@ -1,0 +1,631 @@
+{
+  "$defs": {
+    "Alternative": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "reason_not_selected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason Not Selected"
+        },
+        "evidence_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description"
+      ],
+      "title": "Alternative",
+      "type": "object"
+    },
+    "Applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "scope_description": {
+          "title": "Scope Description",
+          "type": "string"
+        },
+        "predicates": {
+          "default": [],
+          "items": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "title": "Predicates",
+          "type": "array"
+        },
+        "unresolved_fields": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Unresolved Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scope_description"
+      ],
+      "title": "Applicability",
+      "type": "object"
+    },
+    "Cue": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/CueOrigin"
+        },
+        "evidence_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "uncertainty": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uncertainty"
+        }
+      },
+      "required": [
+        "description",
+        "origin"
+      ],
+      "title": "Cue",
+      "type": "object"
+    },
+    "CueOrigin": {
+      "enum": [
+        "observed",
+        "expert_reported",
+        "measured",
+        "model_inferred"
+      ],
+      "title": "CueOrigin",
+      "type": "string"
+    },
+    "EvidenceKind": {
+      "enum": [
+        "time_range",
+        "document_page",
+        "audio_span"
+      ],
+      "title": "EvidenceKind",
+      "type": "string"
+    },
+    "EvidenceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "revision": {
+          "exclusiveMinimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "locator": {
+          "$ref": "#/$defs/Locator"
+        },
+        "relationship": {
+          "$ref": "#/$defs/EvidenceRelationship",
+          "default": "supports"
+        },
+        "alignment_uncertainty_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alignment Uncertainty Ms"
+        }
+      },
+      "required": [
+        "asset_id",
+        "revision",
+        "locator"
+      ],
+      "title": "EvidenceRef",
+      "type": "object"
+    },
+    "EvidenceRelationship": {
+      "enum": [
+        "supports",
+        "contradicts",
+        "context_only"
+      ],
+      "title": "EvidenceRelationship",
+      "type": "string"
+    },
+    "ExceptionCase": {
+      "additionalProperties": false,
+      "properties": {
+        "condition_description": {
+          "title": "Condition Description",
+          "type": "string"
+        },
+        "alternative_response": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alternative Response"
+        },
+        "evidence_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "condition_description"
+      ],
+      "title": "ExceptionCase",
+      "type": "object"
+    },
+    "Locator": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "clock_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clock Id"
+        },
+        "start_ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Ms"
+        },
+        "end_ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Ms"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "region_xyxy_normalized": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Region Xyxy Normalized"
+        },
+        "line_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line Start"
+        },
+        "line_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line End"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "Locator",
+      "type": "object"
+    },
+    "OutcomeCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/OutcomeStatus",
+          "default": "unknown"
+        },
+        "evidence_refs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description"
+      ],
+      "title": "OutcomeCheck",
+      "type": "object"
+    },
+    "OutcomeStatus": {
+      "enum": [
+        "described",
+        "observed",
+        "independently_tested",
+        "unknown"
+      ],
+      "title": "OutcomeStatus",
+      "type": "string"
+    },
+    "Review": {
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/ReviewState",
+          "default": "draft"
+        },
+        "reviewer_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewer Id"
+        },
+        "reviewed_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewed At"
+        },
+        "approved_scope": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Approved Scope"
+        },
+        "supersedes_revision": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supersedes Revision"
+        }
+      },
+      "title": "Review",
+      "type": "object"
+    },
+    "ReviewState": {
+      "enum": [
+        "draft",
+        "needs_clarification",
+        "approved",
+        "rejected",
+        "superseded"
+      ],
+      "title": "ReviewState",
+      "type": "string"
+    },
+    "SpeakerRole": {
+      "enum": [
+        "demonstrator",
+        "retrospective_reviewer",
+        "trainer"
+      ],
+      "title": "SpeakerRole",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "record_id": {
+      "title": "Record Id",
+      "type": "string"
+    },
+    "revision": {
+      "exclusiveMinimum": 0,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "decision_interval_start_ms": {
+      "title": "Decision Interval Start Ms",
+      "type": "integer"
+    },
+    "decision_interval_end_ms": {
+      "title": "Decision Interval End Ms",
+      "type": "integer"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "equipment_or_software_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Equipment Or Software Id"
+    },
+    "known_conditions": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Known Conditions",
+      "type": "array"
+    },
+    "unobserved_conditions": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Unobserved Conditions",
+      "type": "array"
+    },
+    "observed_action_description": {
+      "title": "Observed Action Description",
+      "type": "string"
+    },
+    "observed_action_evidence": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/EvidenceRef"
+      },
+      "title": "Observed Action Evidence",
+      "type": "array"
+    },
+    "observation_status": {
+      "default": "proposed",
+      "title": "Observation Status",
+      "type": "string"
+    },
+    "expert_original_language": {
+      "default": "en",
+      "title": "Expert Original Language",
+      "type": "string"
+    },
+    "expert_original_statement": {
+      "title": "Expert Original Statement",
+      "type": "string"
+    },
+    "expert_translated_statement": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expert Translated Statement"
+    },
+    "speaker_role": {
+      "$ref": "#/$defs/SpeakerRole",
+      "default": "demonstrator"
+    },
+    "cues": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Cue"
+      },
+      "title": "Cues",
+      "type": "array"
+    },
+    "alternatives": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Alternative"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "applicability": {
+      "$ref": "#/$defs/Applicability"
+    },
+    "exceptions": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ExceptionCase"
+      },
+      "title": "Exceptions",
+      "type": "array"
+    },
+    "outcome_checks": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/OutcomeCheck"
+      },
+      "title": "Outcome Checks",
+      "type": "array"
+    },
+    "review": {
+      "$ref": "#/$defs/Review",
+      "default": {
+        "state": "draft",
+        "reviewer_id": null,
+        "reviewed_at": null,
+        "approved_scope": null,
+        "supersedes_revision": null
+      }
+    },
+    "ambiguity_flags": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Ambiguity Flags",
+      "type": "array"
+    },
+    "unsupported_inferences": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Unsupported Inferences",
+      "type": "array"
+    },
+    "missing_measurements": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Measurements",
+      "type": "array"
+    }
+  },
+  "required": [
+    "record_id",
+    "revision",
+    "session_id",
+    "decision_interval_start_ms",
+    "decision_interval_end_ms",
+    "task_id",
+    "observed_action_description",
+    "expert_original_statement",
+    "applicability"
+  ],
+  "title": "DecisionRecord",
+  "type": "object"
+}

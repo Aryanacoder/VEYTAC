@@ -1,0 +1,7 @@
+# UI handoff — 2026-11-01
+
+The Live and Review screens now use a VEYTAC SVG logo, a navy, blue, and white glass palette, larger live video, clear capture/question states, and responsive conversation and review panels. This is a visual and layout change to `apps/web/src/App.tsx` and `apps/web/src/styles.css`; the SVG is in `apps/web/public/veytac-logo.svg`. The offline Chromium smoke script now serves the logo and checks a 390px mobile viewport for horizontal overflow. Its screenshots are in `output/playwright/` (local, ignored by Git).
+
+Requirement focus: FR-02 live capture, FR-09–FR-12 questioning, FR-18 review, and NFR-03 responsive performance. The camera remains a native `<video>` element; no new work was added to the frame sampling or provider call loop. The video container uses paint containment, and the large camera panel does not use backdrop blur. This protects the preview from unnecessary UI effects, but no frame latency measurement was made.
+
+Observed checks: `npm run build` PASS; `npm run smoke:chromium` PASS on desktop and 390px mobile with no horizontal overflow; `npm run test:e2e` PASS (1 test). These are UI/render checks in mock/offline conditions. A real camera and phone run is still needed to measure capture-to-preview and capture-to-question latency, check permissions, and confirm the question flow. No paid API call or deployment was made. Next action: run the real device test and record latency distribution with device/browser/network details before making a performance claim.

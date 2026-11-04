@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "source_type": {
+      "title": "Source Type",
+      "type": "string"
+    },
+    "epoch_id": {
+      "title": "Epoch Id",
+      "type": "string"
+    },
+    "clock_id": {
+      "title": "Clock Id",
+      "type": "string"
+    },
+    "codec": {
+      "default": "",
+      "title": "Codec",
+      "type": "string"
+    },
+    "status": {
+      "default": "active",
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "session_id",
+    "source_type",
+    "epoch_id",
+    "clock_id"
+  ],
+  "title": "MediaStream",
+  "type": "object"
+}

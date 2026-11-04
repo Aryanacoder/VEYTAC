@@ -1,0 +1,99 @@
+{
+  "schema": "veytac-agent-handoff/1",
+  "updated_at_utc": "2026-10-31T00:00:00Z",
+  "updated_by": "muse-code (session 01a1910d)",
+  "repo": "VEYTAC",
+  "package": "veytac 0.1.0",
+  "how_to_use": "Any coding session (Codex, Muse Code, human) starting work must read this file plus docs/IMPLEMENTATION_STATUS.md first, do its task, then append to last_changes and refresh milestones/verification/next_tasks before finishing. A claim without a logged command result is not evidence.",
+  "environment": {
+    "python": "3.11.9",
+    "node": "v24.19.0",
+    "ffmpeg": "8.1 present (ffmpeg + ffprobe)",
+    "execution_mode": "mock (no paid call made)",
+    "sandbox_limits": "listening sockets blocked, so vite dev / uvicorn / TestClient sockets cannot start in the restricted sandbox; run servers and e2e on a dev machine"
+  },
+  "milestones": [
+    { "id": "M0", "name": "reality check", "status": "IN_PROGRESS", "evidence": "python 3.11.9, node 24.19.0, ffmpeg 8.1 present; live Meta lane code written but no paid call made" },
+    { "id": "M1", "name": "contracts + mocks", "status": "IN_PROGRESS", "evidence": "canonical schemas, 17 JSON schemas in schemas/json, deterministic tests green" },
+    { "id": "M2", "name": "capture-to-question slice", "status": "NOT_STARTED", "evidence": null },
+    { "id": "M3", "name": "review + persistent expertise", "status": "NOT_STARTED", "evidence": null },
+    { "id": "M4", "name": "lesson + controlled sharing", "status": "NOT_STARTED", "evidence": null },
+    { "id": "M5", "name": "learning + evaluation", "status": "NOT_STARTED", "evidence": "stage 2, after core; ROBOT_LEARNING_NOT_DEMONSTRATED" },
+    { "id": "M6", "name": "release + rehearsal", "status": "NOT_STARTED", "evidence": null }
+  ],
+  "verification": {
+    "backend_tests": "66 passed, 2 skipped (2026-11-04, `python -m pytest tests/ -q -p no:cacheprovider -p no:rerunfailures`)",
+    "perceive_tests": "11/11 pass (2026-11-04, `npm run test:perceive`: events + overlay tracks + SAM box norm)",
+    "perceive_tests": "5/5 pass (2026-10-31, `npm run test:perceive` in apps/web)",
+    "ui_smoke": "PASS via jsdom on fresh build (2026-10-31); Chromium launch BLOCKED in sandbox (EPERM mkdtemp), code-side tsc+patch steps passed",
+    "frontend_typecheck": "clean (tsc --noEmit, per status log)",
+    "ui_smoke": "CHROMIUM PASS via request interception; screenshots in output/playwright/",
+    "e2e_playwright": "NOT_RUN in sandbox; run on dev machine with `npm run test:e2e`",
+    "live_provider": "NOT_RUN; contract tests skip without key (VEYTAC_LIVE_CONTRACT=1)",
+    "doctor": "ok (2026-10-31: python 3.11.9, ffmpeg/ffprobe/node/npm found, mock mode)"
+  },
+  "last_changes": [
+    {
+      "date": "2026-10-30/31",
+      "summary": "Voice-first loop (S8): questions spoken aloud, mic answers with interim text + auto-send on pause, typing as fallback; gaps derive from each observation's own words (mock-labeled until Meta key lands); app auto-asks while question window is open",
+      "areas": ["apps/web/src", "src/veytac/apprentice", "services/api"],
+      "tests": "36 passed, 2 skipped"
+    },
+    {
+      "date": "2026-10-30/31",
+      "summary": "Live Meta lane (option b): real Chat Completions adapter with structured output, per-session budget reserve/reconcile, no silent mock fallback (live failure -> stored 502); frontend sends real frame pixels; contract tests skip without key",
+      "areas": ["src/veytac/providers/meta.py", "src/veytac/budget", "tests/contracts"],
+      "tests": "33 passed, 2 skipped (live) at that step"
+    },
+    {
+      "date": "2026-10-30/31",
+      "summary": "Partner lanes (decision 0002): SFT example builder with session-grouped splits, Fireworks LoRA plan/launch (approval + non-empty data required), Baseten scale-to-zero deployment plans",
+      "areas": ["src/veytac/learning", "configs"],
+      "tests": "31 passed at that step"
+    },
+    {
+      "date": "2026-10-30/31",
+      "summary": "Self-hosting runbook + reviewed-session checklist + Chromium smoke + glass UI slimming",
+      "areas": ["docs/HOSTING.md", "docs/DEMO_DATASET_CHECKLIST.md", "apps/web/smoke", "apps/web/src"],
+      "tests": "CHROMIUM PASS, typecheck clean"
+    },
+    {
+      "date": "2026-10-31",
+      "summary": "Hosting runbook audit (this session): verified `veytac serve`, .env.example keys, vite /api proxy, npm scripts, doctor, and runbook pytest command. One gap found: VEYTAC_ALLOWED_ORIGINS has no code behind it (no CORS middleware) — harmless today because the Vite proxy keeps the browser on one origin, but the runbook step is currently a no-op",
+      "areas": ["docs/HOSTING.md", "services/api", ".env.example"],
+      "tests": "doctor ok; runbook pytest 36 passed, 2 skipped"
+    },
+    {
+      "date": "2026-10-31",
+      "summary": "Live perception + voice slice (decision 0003): on-device MediaPipe tracker with change events, event-driven frames with stored trigger, Meta realtime ASR relay WS route with budget reserve, relay-first voice client with barge-in, timed fallback when tracking unavailable. No training (owner chose). Owner must run `npm install` on dev machine for @mediapipe/tasks-vision",
+      "areas": ["apps/web/src/perceive", "apps/web/src/dialogue/streaming.ts", "apps/web/src/App.tsx", "src/veytac/voice", "services/api/routers_voice.py", "docs/decisions/0003-live-perception-voice.md"],
+      "tests": "backend 44 passed/2 skipped; perceive 5/5; typecheck clean; jsdom smoke PASS; Chromium launch blocked in sandbox"
+    }
+  ],
+  "review_audit": "2026-10-31: POST /api/v1/decisions/{id}/reviews takes free-text reviewer_id; no auth anywhere in API. Localhost-only until TRD-8 auth slice. Never expose :8000 to LAN; phone uses Vite HTTPS origin only.",
+  "silent_no_question_fix": "2026-10-31: owner reported app starts but never asks. Server chain verified clean in mock mode. Fixed three silent paths: (1) tracker model download could hang indefinitely before arming the frame loop — loop now starts at once on timed fallback and tracker loads concurrently with 45s timeout + progress note; (2) deliver-gate refusals and empty proposals were swallowed — gate reasons now shown in the UI; (3) LATENT BUG FOUND (not fixed, needs decision): question-window expiry uses server epoch ms while client sends performance.now() ms, so the 30s window never expires — questions stay allowed beyond the granted window.",
+  "followup_note": "docs/MUSE_CODE_FOLLOWUP_2026-10-31.md (other machine): build, perceive, chromium smoke, e2e all reported PASS; lockfile pins mediapipe 0.10.20 (lockfile+spec re-verified here, runs are single-source). Open: real-camera tracker smoke, first paid call, human review, held-out eval.",
+  "followup_2026_11_03": "Live UI + voice slice (Codex lane): Start/Stop/Mute, separate consents, 30s window with Mute revoke, first-frame observe, 1s tracking, vite ws:true proxy. Re-verified 2026-11-03: pytest 47/2, doctor mode=live ($0), .env live+paid+key present, all UI behaviors present in tree. Still NOT_RUN: real camera/mic run, voice socket upgrade, latency, human review, held-out eval, robot evidence.",
+  "backend_env_fix": "2026-10-31: rehearsal dead because no code loaded .env (server always mock) + file itself said mock/paid-false. serve/doctor now load repo-root .env; python-dotenv added; tests/unit/test_cli_env.py added; doctor prints loaded file + mode. UI untouched (Codex lane). WS stack (uvicorn 0.34.2 + websockets 15.0.1 + starlette 0.46.2) import-compatible; live socket proven only on owner run.",
+  "fix_2026_11_04": "Owner screenshot: frames 502 on provider HTTP 400 (strict schema). Fixed via to_strict_schema at LiveMetaClient choke point (raw-fail/transformed-pass tests). Shipped detection overlay (blue person/hand, red objects, motion trails, motion_burst events) + rewrote jsdom smoke for current UI. Repeat 502 with identical message = stale server (transform output verified correct); serve now logs strict-schema=2026-11-04 marker. Same-WiFi phone/tablet runbook added. Tracker v2: 21-dot hand skeletons, threshold 0.25/max 10 results, 4fps overlay + 1s event throttle. Live-provider proof pending owner run.",
+  "sam_lane_2026_11_04": "sam-3.1 Responses client + box-grammar builder/parser (doc fixtures), official meta-sam-parser decode when installed else opaque, event-frame wiring with budget guards, client box prompts + SAM overlay boxes (fills pending live placement verification), concept lists refused unpaid. meta-sam-parser>=0.1 declared. Live SAM call + mask fills + video tracking pending owner run.",
+  "ui_rework_2026_11_04": "Blue/white glass UI rework verified: tsc clean, smoke PASS, perceive 11/11, backend 66/2, overlay+legend intact, e2e 3 tests present (run single-source). Fixed overlay box colors to match restyled legend. Device checks (rendering, fps, safe-area, JP, long transcript) are owner runs.",
+  "phone_field_fix": "Owner: front camera default + zero highlights + slow tracking. Rear default + Rear/Front flip (standby), GPU->CPU fallback, smoke harness polls for notice (was asserting pre-effect). tsc clean, perceive 11/11, smoke PASS x2. If still no highlights, read the status line under the video for the named cause.",
+  "next_tasks": [
+    "Owner device runs: real iPhone/iPad camera session — rendering, overlay fps, safe-area, Japanese questions, long transcript, reduced-motion; plus pip install meta-sam-parser, restart backend, live SAM session per prior task",
+    "Owner: restart backend + reload web app, run live session — confirm no 502 on frames, blue/red boxes with trails over video, motion triggers frames; report any new error text",
+    "Owner: in .env set VEYTAC_EXECUTION_MODE=live + VEYTAC_ALLOW_PAID_CALLS=true (key already in right var), restart backend, confirm doctor prints mode=live, then live rehearsal per checklist",
+    "Owner: retest with latest web build — confirm Questions toggle ON, report mode label (MOCK/LIVE), any dim gate note, any error banner, backend terminal errors",
+    "Owner: fix .env (key into VEYTAC_META_API_KEY, mode live, paid calls true), run `npm install` in apps/web, start backend + `npm run dev:https`, run first live rehearsal: hold an object, confirm spoken event-driven question, answer by voice, interruption test",
+    "M2: one real phone capture -> real Meta question grounded in an observed gap -> live human answer -> interruption test (mocks do not pass this gate)",
+    "M3: corrections, approval, and supersession on that real session; correcting a rule must change later behavior",
+    "Decide: wire VEYTAC_ALLOWED_ORIGINS into CORS middleware or remove the runbook step (currently a no-op)",
+    "M4+: evidence-linked lesson, sanitized release, held-out transfer test; then M6 rehearsal before Nov 4 deadline"
+  ],
+  "live_rehearsal": "Owner added Meta key 2026-10-31 but placed it in META_API_KEY (code reads VEYTAC_META_API_KEY only); mode still mock. .env fix + server start pending owner action this session.",
+  "blockers": [
+    "No paid Meta call made yet; live M2 needs VEYTAC_META_API_KEY + VEYTAC_ALLOW_PAID_CALLS=true with owner approval and per-session cap ($3.00 default)",
+    "E2E and real servers cannot run in the restricted sandbox (sockets blocked); need a dev machine",
+    "git status unreadable in sandbox (dubious-ownership); next session on dev machine should record branch + clean/dirty state"
+  ]
+}

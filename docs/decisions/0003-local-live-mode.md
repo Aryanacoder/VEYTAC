@@ -1,0 +1,3 @@
+# Decision 0003 — local live mode for founder rehearsal (2026-11-01)
+
+The owner relayed the backend handoff and instructed setting `VEYTAC_EXECUTION_MODE=live` and `VEYTAC_ALLOW_PAID_CALLS=true` in the local `.env`. The existing local session ceiling remains $3.00. No credential is recorded here. `doctor` now reports the effective mode honestly and confirms that its diagnostic made no paid call. This change affects the local provider mode only; it is not evidence of a successful Meta request, live voice socket, or complete session. Requirement focus: FR-08 and budget gates G0/G2. No paid call was made while applying this change. The next evidence step is a consented founder session with actual provider usage and cost recorded.

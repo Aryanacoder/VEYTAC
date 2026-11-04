@@ -1,0 +1,29 @@
+# Nonsecret runtime configuration (no keys here; keys live in .env / server env).
+app:
+  env: development
+  execution_mode: mock # mock | live
+  allowed_origins:
+    - https://localhost:8443
+
+capture:
+  session_minutes_normal: 10
+  session_minutes_hard: 15
+  upload_interval_s: 2
+  max_upload_mb: 250
+  max_frame_snapshot_mb: 2
+  max_chunk_mb: 16
+
+apprentice:
+  observation_window_s: 8
+  max_frames_per_window: 4
+  max_autonomous_questions_per_10min: 5
+  question_cooldown_s: 45
+  question_window_s: 30
+  candidate_expiry_s: 120
+
+budget:
+  session_cap_usd: 3.00
+  currency_unit: microdollars
+
+retention:
+  raw_captures_days: 7

@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "SessionLifecycle": {
+      "enum": [
+        "created",
+        "consent_pending",
+        "ready",
+        "capturing",
+        "paused",
+        "finalizing",
+        "review",
+        "closed",
+        "failed",
+        "deletion_requested",
+        "deleted"
+      ],
+      "title": "SessionLifecycle",
+      "type": "string"
+    },
+    "SessionMode": {
+      "enum": [
+        "LIVE_CAPTURE",
+        "RECORDED_REPLAY",
+        "SIMULATED"
+      ],
+      "title": "SessionMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "owner_id": {
+      "title": "Owner Id",
+      "type": "string"
+    },
+    "workspace_id": {
+      "title": "Workspace Id",
+      "type": "string"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "domain": {
+      "default": "general",
+      "title": "Domain",
+      "type": "string"
+    },
+    "languages": {
+      "default": [
+        "en"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Languages",
+      "type": "array"
+    },
+    "mode": {
+      "$ref": "#/$defs/SessionMode",
+      "default": "LIVE_CAPTURE"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/SessionLifecycle",
+      "default": "created"
+    },
+    "created_at": {
+      "default": "",
+      "title": "Created At",
+      "type": "string"
+    },
+    "capture_granted": {
+      "default": false,
+      "title": "Capture Granted",
+      "type": "boolean"
+    },
+    "processing_granted": {
+      "default": false,
+      "title": "Processing Granted",
+      "type": "boolean"
+    },
+    "sharing_granted": {
+      "default": false,
+      "title": "Sharing Granted",
+      "type": "boolean"
+    },
+    "training_granted": {
+      "default": false,
+      "title": "Training Granted",
+      "type": "boolean"
+    },
+    "questions_allowed": {
+      "default": false,
+      "title": "Questions Allowed",
+      "type": "boolean"
+    },
+    "budget_cap_usd": {
+      "default": "3.00",
+      "title": "Budget Cap Usd",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "owner_id",
+    "workspace_id",
+    "task_id"
+  ],
+  "title": "Session",
+  "type": "object"
+}

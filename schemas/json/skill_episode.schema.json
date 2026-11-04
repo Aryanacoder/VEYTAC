@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "Capability": {
+      "enum": [
+        "observation",
+        "expert_context",
+        "action_aligned",
+        "embodiment_specific"
+      ],
+      "title": "Capability",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "episode_id": {
+      "title": "Episode Id",
+      "type": "string"
+    },
+    "revision": {
+      "exclusiveMinimum": 0,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "task_context": {
+      "title": "Task Context",
+      "type": "string"
+    },
+    "capture_manifest": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": {},
+      "title": "Capture Manifest",
+      "type": "object"
+    },
+    "evidence_assets": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Assets",
+      "type": "array"
+    },
+    "observations": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Observations",
+      "type": "array"
+    },
+    "dialogue_turns": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Dialogue Turns",
+      "type": "array"
+    },
+    "decisions": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "review_summary": {
+      "default": "",
+      "title": "Review Summary",
+      "type": "string"
+    },
+    "permissions": {
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "default": {},
+      "title": "Permissions",
+      "type": "object"
+    },
+    "capabilities": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Capability"
+      },
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "missing_fields": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Fields",
+      "type": "array"
+    },
+    "quality_report_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Quality Report Ref"
+    },
+    "source_manifest_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Manifest Ref"
+    },
+    "split_group": {
+      "default": "train",
+      "title": "Split Group",
+      "type": "string"
+    },
+    "lineage": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Lineage",
+      "type": "array"
+    }
+  },
+  "required": [
+    "episode_id",
+    "revision",
+    "title",
+    "task_context"
+  ],
+  "title": "SkillEpisode",
+  "type": "object"
+}
