@@ -87,7 +87,7 @@ Camera / Screen / Mic        Public, permissioned references
                                       Human/agent tasks   Robot research*
 ```
 
-`*Robot action learning requires genuinely synchronized state/action data, embodiment information and a separate evaluation gate.`
+*Robot action learning requires genuinely synchronized state/action data, embodiment information and a separate evaluation gate.*
 
 **Stack:** React/TypeScript browser app, Python/FastAPI service, SQLite/local media, Meta API adapters, and a deterministic review/export/evaluation layer. Large datasets and optional training jobs are **not required** for local mock-mode operation.
 
